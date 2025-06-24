@@ -59,15 +59,17 @@ Başarılı giriş yanıtı
 
 Header’a `Authorization: Bearer <token>` ekleyerek korumalı uç noktalara erişin.
 
-### Gelir İşlemleri
+### Gelir (Income) İşlemleri
 
-| Yöntem | Endpoint       | Açıklama          |
-| ------ | -------------- | ----------------- |
-| POST   | `/api/incomes` | Gelir ekle        |
+| Yöntem | Endpoint | Açıklama |
+| ------ | -------- | -------- |
+| POST   | `/api/incomes` | Gelir ekle |
 | GET    | `/api/incomes` | Gelirleri listele |
+| PUT    | `/api/incomes/{id}` | Gelir güncelle |
+| DELETE | `/api/incomes/{id}` | Gelir sil |
+| GET    | `/api/incomes/total` | Kullanıcıya ait toplam bakiye|
 
-Gelir ekleme isteği
-
+Örnek istek (POST `/api/incomes`)
 ```json
 {
   "amount": 5000.0,
@@ -76,9 +78,7 @@ Gelir ekleme isteği
   "category": "Salary"
 }
 ```
-
 Olası yanıt (201 Created)
-
 ```json
 {
   "id": 1,
@@ -89,17 +89,18 @@ Olası yanıt (201 Created)
 }
 ```
 
-### Gider İşlemleri
+### Gider (Expense) İşlemleri
 
-| Yöntem | Endpoint        | Açıklama          |
-| ------ | --------------- | ----------------- |
-| POST   | `/api/expenses` | Gider ekle        |
+| Yöntem | Endpoint | Açıklama |
+| ------ | -------- | -------- |
+| POST   | `/api/expenses` | Gider ekle |
 | GET    | `/api/expenses` | Giderleri listele |
+| PUT    | `/api/expenses/{id}` | Gider güncelle |
+| DELETE | `/api/expenses/{id}` | Gider sil |
+| GET    | `/api/expenses/total` | Kullanıcıya ait toplam bakiye |
 
-### Özet
-
-`GET /api/summary` — toplam gelir, gider ve bakiye
-
+### Toplam Bakiye
+`GET /api/incomes/total` ve `GET /api/expenses/total` uç noktalarından  Örnek yanıt:
 ```json
 {
   "totalIncome": 5000.0,
@@ -107,6 +108,19 @@ Olası yanıt (201 Created)
   "balance": 4879.25
 }
 ```
+
+### Tüm Uç Noktaların Özeti
+
+| Grup | Endpoint | Yöntemler |
+|------|----------|-----------|
+| Auth | `/api/auth/register` | POST |
+| Auth | `/api/auth/login`    | POST |
+| Incomes | `/api/incomes` | POST, GET |
+| Incomes | `/api/incomes/{id}` | PUT, DELETE |
+| Incomes | `/api/incomes/total` | GET |
+| Expenses | `/api/expenses` | POST, GET |
+| Expenses | `/api/expenses/{id}` | PUT, DELETE |
+| Expenses | `/api/expenses/total` | GET |
 
 ### Hata Formatı Örneği
 
